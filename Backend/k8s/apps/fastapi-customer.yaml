@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-customer-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fastapi-customer-deployment
+  template:
+    metadata:
+      labels:
+        app: fastapi-customer-deployment
+    spec:
+      containers:
+        - name: fastapi-customer
+          image: elghibaomar/fastapi-customer:latest
+          env:
+            - name: PORT
+              value: "8181"
+          ports:
+            - containerPort: 8181
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: fastapi-customer-service
+spec:
+  type: LoadBalancer
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8181
+  selector:
+    app: fastapi-customer-deployment
