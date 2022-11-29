@@ -1,4 +1,4 @@
-# voze
+# Customer Satisfaction Frotend
 
 ## Project setup
 ```
